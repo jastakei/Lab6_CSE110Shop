@@ -66,7 +66,7 @@ template.innerHTML = `
       text-overflow: unset;
     }
     </style>
-    <li class="product-item">
+    <li class="product">
                     <img />
                     <p class="title"></p>
                     <p class="price"></p>
