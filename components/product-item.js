@@ -82,7 +82,7 @@ class ProductItem extends HTMLElement {
     this.root = this.attachShadow({ mode: 'open' });
     this.root.appendChild(template.content.cloneNode(true));
     
-    this.shadowRoot.querySelector('.title').innerText = 'hi';//this.getAttribute('.title');           //get title;
+    this.shadowRoot.querySelector('.title').innerText = 'hi';//this.getAttribute('item');           //get title;
     this.shadowRoot.querySelector('.price').innerText = 'bye';//this.getAttribute('.price');//get price
     this.shadowRoot.querySelector('img').src = 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg';//this.getAttribute('img') //get img src
     this.shadowRoot.querySelector('img').width = 200;
