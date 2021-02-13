@@ -1,16 +1,6 @@
 // product-item.js
-
-class ProductItem extends HTMLElement {
-  // TODO
-  constructor() {
-    super();
-    this.innerHTML = 'card';
-  }
-  window.customElements.define('product-item', ProductItem);
-
-
-    const template = document.createElement('template');
-    template.innerHTML = `
+const template = document.createElement('template');
+template.innerHTML = `
     <style>
     .price {
       color: green;
@@ -76,21 +66,42 @@ class ProductItem extends HTMLElement {
       text-overflow: unset;
     }
     </style>
-    <li class="product">
-                    <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" alt="Fjallraven - Foldstack No. 1 Backpack, Fits 15 Laptops" width=200>
-                    <p class="title">Fjallraven - Foldstack No. 1 Backpack, Fits 15 Laptops</p>
-                    <p class="price">$109.95</p>
+    <li class="product-item">
+                    <img />
+                    <p class="title"></p>
+                    <p class="price"></p>
                     <button onclick="alert('Added to Cart!')">Add to Cart</button>
-                </li>`;
+                </li>
+      `;
 
-   super();
-   
-   this.root = this.attachShadow({ mode: 'open' });
-   this.root.appendChild(template.content.cloneNode(true));
-   
+class ProductItem extends HTMLElement {
+  // TODO
+  constructor() {
+    
+    super();
+    this.root = this.attachShadow({ mode: 'open' });
+    this.root.appendChild(template.content.cloneNode(true));
+    
+    this.shadowRoot.querySelector(".title").innerText = 'hi';//this.getAttribute('.title');           //get title;
+    this.shadowRoot.querySelector(".price").innerText = 'bye';//this.getAttribute('.price');//get price
+    this.shadowRoot.querySelector('img').src = 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg';//this.getAttribute('img') //get img src
+    
+  }
+  /*connectedCallBack() {
+    this.shadowRoot.querySelector(#)
   }
 
+  attributeChangedCallback (attributeName, oldValue, newValue); {
+
+  }*/
 }
+  customElements.define('product-item', ProductItem);
+
+
+   
+  
+
+
 
 
 
