@@ -3,6 +3,12 @@
 class ProductItem extends HTMLElement {
   // TODO
   constructor() {
+    super();
+    this.innerHTML = 'card';
+  }
+  window.customElements.define('product-item', ProductItem);
+
+
     const template = document.createElement('template');
     template.innerHTML = `
     <style>
@@ -86,7 +92,6 @@ class ProductItem extends HTMLElement {
 
 }
 
-customElements.define('product-item', ProductItem);
 
 
 
