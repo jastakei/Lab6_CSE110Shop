@@ -67,42 +67,65 @@ template.innerHTML = `
     }
     </style>
     <li class="product">
-                    <img />
+                    <img width = 200>
                     <p class="title"></p>
                     <p class="price"></p>
-                    <button onclick="alert('Added to Cart!')">Add to Cart</button>
+                    <button id = "button"> Add to Cart</button>
                 </li>
-      `;
+      
+`;
 
 class ProductItem extends HTMLElement {
   // TODO
-  constructor() {
-    
+  constructor(obj) {
+
     super();
+    
+    this.addItem = true;
     this.root = this.attachShadow({ mode: 'open' });
     this.root.appendChild(template.content.cloneNode(true));
-    
-    this.shadowRoot.querySelector('.title').innerText = 'hi';//this.getAttribute('item');           //get title;
-    this.shadowRoot.querySelector('.price').innerText = 'bye';//this.getAttribute('.price');//get price
-    this.shadowRoot.querySelector('img').src = 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg';//this.getAttribute('img') //get img src
-    this.shadowRoot.querySelector('img').width = 200;
+
+    this.shadowRoot.querySelector('.title').innerText = obj["title"];           
+    this.shadowRoot.querySelector('.price').innerText = '$' + obj["price"];
+    this.shadowRoot.querySelector('img').src = obj["image"];
+    this.shadowRoot.querySelector('img').alt = obj["title"];
+    this.shadowRoot.querySelector('img').height = 250;
+    //this.shadowRoot.querySelector('button'),name = this.getAttribute("id");
   }
-  /*connectedCallBack() {
-    this.shadowRoot.querySelector(#)
+
+  //Function when addTo/RemoveFrom Cart 
+  AddtoCart() {
+    const counter = document.getElementById('cart-count');
+    const idnum = this.getAttribute('id'); 
+    //const id = JSON.stringify(idnum); 
+    const btn = this.shadowRoot.querySelector('#button');
+    var strlist = JSON.parse(localStorage.getItem('ids')) || [];
+
+    if(btn.innerText == 'Add to Cart') {    
+      alert("Added to Cart!");
+      counter.setAttribute('textContent', parseInt(++counter.textContent));
+      btn.innerText = 'Remove from Cart';
+      if (strlist.indexOf(idnum) != idnum) {
+        strlist.push(idnum);
+        localStorage.setItem('ids', JSON.stringify(strlist));
+      }
+      //this.addItem = !this.addItem;
+    } else {
+      //alert("remove");
+      counter.setAttribute('textContent', parseInt(--counter.textContent));
+      btn.innerText = 'Add to Cart';
+      strlist.splice(strlist.indexOf(idnum),1);
+      localStorage.setItem('ids', JSON.stringify(strlist));
+    }
   }
 
-  attributeChangedCallback (attributeName, oldValue, newValue); {
-
-  }*/
-}
-  customElements.define('product-item', ProductItem);
-
-
-   
   
+  connectedCallback(){
+    this.shadowRoot.querySelector('#button').addEventListener("click", () => this.AddtoCart());
+  }
 
-
-
-
-
-
+  disconnectedCallback(){
+    this.shadowRoot.querySelector('#button').removeEventListener();
+  }
+}
+   customElements.define('product-item', ProductItem);
